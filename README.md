@@ -14,7 +14,7 @@ Additionally, call numbers may be extended with the following fields from FOLIO:
 * Item Copy Number
 
 ## Requirements
-* Web server with PHP 7.1 or above
+* Web server with PHP 8.0 or above
 * PHP cURL Extension
 * PHP JSON Extension
 
