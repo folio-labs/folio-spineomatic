@@ -74,13 +74,37 @@ function display_som_response($item_title, $item_call_number_prefix = '', $item_
   SOFTWARE.
    */
 
-  $escaped_title = htmlspecialchars($item_title, ENT_XML1 | ENT_COMPAT, 'UTF-8');
-
+  $xml_encode = function($str) {
+    return htmlspecialchars($str, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+  };
+  $encoded_title = $xml_encode($item_title);
+  $encoded_item_call_number_prefix = $xml_encode($item_call_number_prefix);
+  $encoded_item_call_number = $xml_encode($item_call_number);
+  $encoded_item_call_number_type = $xml_encode($item_call_number_type);
+  $encoded_enumeration = $xml_encode($enumeration);
+  $encoded_chronology = $xml_encode($chronology);
 
   echo <<<EOF
-<?xml version="1.0" encoding="UTF-8"?><item link=""><bib_data><title>{$escaped_title}</title></bib_data><holding_data link=""><call_number_prefix>{$item_call_number_prefix}</call_number_prefix><call_number>{$item_call_number}</call_number><call_number_type desc="">{$item_call_number_type}</call_number_type></holding_data><item_data><enumeration>{$enumeration}</enumeration><chronology>{$chronology}</chronology><description></description><library desc="-- Library Description --">-- Library Code --</library><location desc="-- Location Name --">-- Location Code --</location><location_gloss></location_gloss></item_data></item>
+<?xml version="1.0" encoding="UTF-8"?>
+<item link="">
+  <bib_data>
+    <title>{$encoded_title}</title>
+  </bib_data>
+  <holding_data link="">
+    <call_number_prefix>{$encoded_item_call_number_prefix}</call_number_prefix>
+    <call_number>{$encoded_item_call_number}</call_number>
+    <call_number_type desc="">{$encoded_item_call_number_type}</call_number_type>
+  </holding_data>
+  <item_data>
+    <enumeration>{$encoded_enumeration}</enumeration>
+    <chronology>{$encoded_chronology}</chronology>
+    <description></description>
+    <library desc="-- Library Description --">-- Library Code --</library>
+    <location desc="-- Location Name --">-- Location Code --</location>
+    <location_gloss></location_gloss>
+  </item_data>
+</item>
 EOF;
-
 
   // XML displayed; nothing further.
   exit();
